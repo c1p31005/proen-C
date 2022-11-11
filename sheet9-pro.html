@@ -16,3 +16,21 @@
     <button onclick="location.href='sheet6-top.html'">戻る</button>
   </div>
 <body>
+
+<?php
+$dsn = "mysql:dbname=proe;host=localhost";
+$my = new PDO($dsn, "proe", "proe");
+$sql = "SELECT * FROM 学校;";
+$st = $my->prepare($sql);
+$st->execute();
+$html = "<table border='1'><tr><th>学校ID</th><th>学校名</th><th>住所</th><th>電話番号</th><th>種目</th><th>パスワード</th><th>緯度</th><th>経度</th></tr>";
+while($row = $st->fetch(PDO::FETCH_ASSOC)){
+$html .= "<tr>";
+foreach($row as $item) $html .= "<td>{$item}</td>";
+$html .= "</tr>";
+}
+$html .= "</table>";
+echo($html);
+?>
+</body>
+</html>
