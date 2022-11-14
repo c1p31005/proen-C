@@ -1,6 +1,6 @@
 ﻿<?php
 
-$dsn = "mysql:dbname=probc;host=localhost";
+$dsn = "mysql:dbname=proe;host=localhost";
 $next = "v_{$_POST["type"]}_reg.php";
 
 $my = new PDO($dsn, 'probc', 'probc');
@@ -34,10 +34,10 @@ if($_POST["type"] == "applicant"){
     $stmt->execute($arr);
     $next = "c_calc_ttime.php?id={$_POST["event_id"]}&no={$_POST["stno"]}";
   }
-}else if($_POST["type"] == "event"){
+}else if($_POST["type"] == "coach_bo"){
   if(isset($_POST["p1"],$_POST["p2"],$_POST["p3"],$_POST["p4"],$_POST["p5"],$_POST["p6"])){
-    $sql = "INSERT INTO イベント (雇用申請者ID,イベント名,業務内容,勤務開始年月日,勤務終了年月日,予定勤務時間,時給,処理フラグ) VALUES (?,?,?,?,?,?,?,0);";
-    $arr = array($_POST["applicant"],$_POST["p1"],$_POST["p2"],$_POST["p3"],$_POST["p4"],$_POST["p5"],$_POST["p6"]);
+    $sql = "INSERT INTO  (ユーザ募集ID,契約開始年月日,契約終了年月日,金額,学校ID,種目,評価ID VALUES (?,?,?,?,?,?,?);";
+    $arr = array($_POST["p1"],$_POST["p2"],$_POST["p3"],$_POST["p4"],$_POST["p5"],$_POST["p6"],$_POST["p7"]);
     $stmt = $my->prepare($sql);
     $stmt->execute($arr);
     $next = "v_event_list.php?flow=1";
