@@ -1,18 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="Shift-JIS">
-<title>9.�v���t�B�[���Q�Ɖ��</title>
+<title>学校プロフィール</title>
 <link rel="stylesheet" style type="text/css" href="style.css">
 </head>
 <body>
-  <div class="box-title">
-    <h1>�g�b�v�y�[�W</h1>
-  </div>
+<h1>学校プロフィール</h1>
+<div class="box-title">
+  <h1>トップページ</h1>
+</div>
 <div class="profile-text">
-    <input type="profile" name="profile" placeholder="���[�U���"></br>
-  </div>
-  <div class="back-btm">
-    <button onclick="location.href='sheet6-top.html'">�߂�</button>
-  </div>
-<body>
+  <input type="profile" name="profile" placeholder="ユーザ情報"></br>
+</div>
+<div class="back-btm">
+  <button onclick="location.href='sheet6-top.html'">戻る</button>
+</div>
+<?php
+$dsn = "mysql:dbname=proe;host=localhost";
+$my = new PDO($dsn, "proe", "proe");
+$sql = "SELECT * FROM 学校;";
+$st = $my->prepare($sql);
+$st->execute();
+$html = "<table border='1'><tr><th>学校ID</th><th>学校名</th><th>住所</th><th>電話番号</th><th>種目</th><th>パスワード</th><th>緯度</th><th>経度</th></tr>";
+while($row = $st->fetch(PDO::FETCH_ASSOC)){
+$html .= "<tr>";
+foreach($row as $item) $html .= "<td>{$item}</td>";
+$html .= "</tr>";
+}
+$html .= "</table>";
+echo($html);
+?>
+</body>
+</html>
